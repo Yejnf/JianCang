@@ -3,8 +3,32 @@
 `剪藏` 是一个轻量级 Windows 剪贴板历史器。它常驻后台托盘，自动记录运行期间产生的文字、图片和图文剪贴板内容，并提供托盘快捷菜单、全局快捷键、搜索、固定、去重、自动清理和开机自启等能力。
 
 > 应用名：剪藏  
-> 构建产物：`dist\剪藏.exe`  
+> 本地构建产物：`dist\剪藏.exe`  
+> 发布下载：请在本仓库的 GitHub Releases 页面下载最新版 EXE  
 > 数据目录：`%AppData%\JianCang`
+
+## 获取方式
+
+### 普通用户
+
+请前往本仓库的 GitHub Releases 页面下载最新版 `剪藏.exe`。下载后双击运行即可，无需安装。
+
+源码仓库主要保存代码、构建脚本和文档；正式发布的 EXE 建议作为 Release 附件提供，不直接提交到仓库中。
+
+### 开发者
+
+如果你想从源码构建，请克隆仓库后在项目根目录运行构建脚本：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\build.ps1
+```
+
+构建成功后会在本地生成：
+
+```text
+dist\剪藏.exe
+Assets\剪藏.ico
+```
 
 ## 功能特性
 
@@ -25,7 +49,7 @@
 
 ## 快速开始
 
-下载或构建 `dist\剪藏.exe` 后双击运行。
+从 GitHub Releases 下载 `剪藏.exe`，或在本地构建生成 `dist\剪藏.exe` 后双击运行。
 
 启动后默认不会弹出主窗口，会挂到系统托盘后台运行。可以通过以下方式使用：
 
@@ -201,6 +225,8 @@ C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe
 
 ## 构建
 
+本项目不依赖 .NET SDK。构建脚本会调用 Windows 自带的 .NET Framework C# 编译器，并生成本地 EXE 产物。
+
 在项目根目录运行：
 
 ```powershell
@@ -220,7 +246,7 @@ Assets\剪藏.ico
 .
 ├─ Assets\
 │  └─ 剪藏.ico
-├─ dist\
+├─ dist\                 # 本地构建后生成，发布时建议上传到 GitHub Releases
 │  └─ 剪藏.exe
 ├─ src\
 │  └─ Program.cs
@@ -233,7 +259,7 @@ Assets\剪藏.ico
 - `src\Program.cs`：WinForms 应用源码，包含剪贴板监听、托盘菜单、历史窗口、设置、热键和单实例逻辑。
 - `build.ps1`：生成图标并编译 EXE。
 - `Assets\剪藏.ico`：应用图标。
-- `dist\剪藏.exe`：构建后的可执行文件。
+- `dist\剪藏.exe`：本地构建后的可执行文件；正式分发时建议作为 GitHub Release 附件上传。
 
 ## 开发说明
 
@@ -294,15 +320,22 @@ Assets\剪藏.ico
 - 固定记录不会被自动清理规则删除。
 - Windows 应用程序日志中没有新的 `.NET Runtime` 崩溃记录。
 
-## 发布建议
+## 发布
 
-开源或正式发布前建议补充：
+发布新版本时建议：
 
-- `LICENSE` 文件。
-- 版本号和变更日志。
-- GitHub Release 构建产物。
-- EXE 数字签名，减少系统安全提示。
-- 基础截图或 GIF 演示。
+1. 更新版本号和变更说明。
+2. 运行构建脚本生成 `dist\剪藏.exe`。
+3. 按维护者检查清单完成手动验证。
+4. 在 GitHub 创建新的 Release。
+5. 将 `dist\剪藏.exe` 上传为 Release 附件。
+6. 在 Release Notes 中说明主要变化、已知限制和升级注意事项。
+
+可选但推荐：
+
+- 为 EXE 做数字签名，减少系统安全提示。
+- 提供基础截图或 GIF 演示。
+- 如果仓库不希望保存二进制产物，请确保 `dist/` 不被提交。
 
 ## 许可证
 
